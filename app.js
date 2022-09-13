@@ -1,14 +1,17 @@
 /* Imports */
-// import { getRandomItem } from './utils.js';
+import { getRandomItem } from './utils.js';
 
 /* State */
-let gameState = 'result'; // 'guess' or 'result'
+let gameState = 'guess'; // 'guess' or 'results'
 let guess = ''; // 'guess-1' 'guess-2' 'guess-3'
-let answer = 'pearl-1'; // 'pearl-1' 'pearl-2' 'pearl-3'
+let answer = ''; // 'guess-1' 'guess-2' 'guess-3'
 let result = 'win'; // 'win' or 'lose'
 
-let wins = 0;
-let losses = 0;
+let totalWins = 0;
+let totalPlays = 0;
+
+// probability array
+const pearlLocation = ['guess-1', 'guess-2', 'guess-3'];
 
 const pearl1 = document.getElementById('pearl-1');
 const pearl2 = document.getElementById('pearl-2');
@@ -31,6 +34,8 @@ const playAgainButton = document.getElementById('play-again-button');
 /* Actions */
 function loadPage() {
     displayShells();
+    displayResults();
+    displayScoreboard();
 }
 
 function displayShells() {
@@ -46,26 +51,65 @@ function displayShells() {
         display3.classList.add('hidden');
         playAgainButton.classList.add('hidden');
     }
+}
+
+// display
+
+function displayResults() {
     if (gameState === 'results') {
         guess1.classList.add('hidden');
         guess2.classList.add('hidden');
         guess3.classList.add('hidden');
-        if (guess === 'guess-1') {
-            shell1.classList.add('reveal');
-        } else {
-            guess1;
-        }
+        playAgainButton.classList.remove('hidden');
     }
+
+    guess = userGuess;
+    answer = getRandomItem(pearlLocation);
+    totalPlays++;
+
+    if (guess === 'guess-1') {
+        shell1.classList.add('reveal');
+    }
+
+    if (guess === 'guess-2') {
+        shell2.classList.add('reveal');
+    }
+
+    if (guess === 'guess-3') {
+        shell3.classList.add('reveal');
+    }
+
+    if (guess === answer) {
+        result = 'win';
+        totalWins++;
+    } else {
+        result = 'lose';
+    }
+
+    loadPage();
 }
 
-/* Components */
-
-/* Component */
-
-// get DOM
-// display
+function playAgain() {
+    gameState = 'guess';
+    loadPage();
+}
 
 // event listeners
+guess1.addEventListener('click', () => {
+    displayResults('guess-1');
+});
+
+guess2.addEventListener('click', () => {
+    displayResults('guess-2');
+});
+
+guess3.addEventListener('click', () => {
+    displayResults('guess-3');
+});
+
+playAgainButton.addEventListener('click', () => {
+    playAgain();
+});
 
 /* Run page load code */
 loadPage();
