@@ -93,7 +93,17 @@ function playAgain() {
     gameState = 'guess';
     loadPage();
 }
+/* Scoreboard */
 
+const winsDisplay = document.getElementById('wins-display');
+const lossesDisplay = document.getElementById('losses-display');
+const totalDisplay = document.getElementById('total-display');
+
+function displayScoreboard() {
+    totalDisplay.textContent = totalPlays;
+    winsDisplay.textContent = totalWins;
+    lossesDisplay.textContent = totalPlays - totalWins;
+}
 // event listeners
 guess1.addEventListener('click', () => {
     displayResults('guess-1');
