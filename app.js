@@ -2,10 +2,10 @@
 import { getRandomItem } from './utils.js';
 
 /* State */
-let gameState = 'results'; // 'guess' or 'results'
-let guess = 'guess-1'; // 'guess-1' 'guess-2' 'guess-3'
-let answer = 'quess-1'; // 'guess-1' 'guess-2' 'guess-3'
-let result = 'win'; // 'win' or 'lose'
+let gameState = ''; // 'guess' or 'results'
+let guess = ''; // 'guess-1' 'guess-2' 'guess-3'
+let answer = ''; // 'guess-1' 'guess-2' 'guess-3'
+let result = ''; // 'win' or 'lose'
 
 let totalWins = 0;
 let totalLosses = 0;
@@ -14,6 +14,7 @@ let totalPlays = 0;
 // probability array
 const pearlLocation = ['guess-1', 'guess-2', 'guess-3'];
 
+/* DOM */
 const pearl1 = document.getElementById('pearl-1');
 const pearl2 = document.getElementById('pearl-2');
 const pearl3 = document.getElementById('pearl-3');
@@ -54,16 +55,6 @@ function displayShells() {
 }
 
 // display
-
-/* function displayResults() {
-    if (gameState === 'results') {
-        guess1Button.classList.add('hidden');
-        guess2Button.classList.add('hidden');
-        guess3Button.classList.add('hidden');
-        playAgainButton.classList.remove('hidden');
-    }
-} */
-
 function playGame(userGuess) {
     displayText1.innerHTML = '';
     displayText2.innerHTML = '';
@@ -73,6 +64,7 @@ function playGame(userGuess) {
     guess = userGuess;
     answer = getRandomItem(pearlLocation);
     totalPlays++;
+
     displayText1.classList.remove('hidden');
     displayText2.classList.remove('hidden');
     displayText3.classList.remove('hidden');
@@ -147,11 +139,6 @@ function playGame(userGuess) {
         result = 'win';
     }
 
-    console.log(guess);
-    console.log(answer);
-    console.log(totalPlays);
-    console.log(result);
-
     // displayResults();
     displayScoreboard();
 }
@@ -190,6 +177,7 @@ guess3Button.addEventListener('click', () => {
     playGame('guess-3');
 });
 
+// Play again
 function playAgain() {
     gameState = 'guess';
     guess1Button.classList.remove('hidden');
