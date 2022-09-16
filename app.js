@@ -65,11 +65,17 @@ function displayShells() {
 } */
 
 function playGame(userGuess) {
+    displayText1.innerHTML = '';
+    displayText2.innerHTML = '';
+    displayText3.innerHTML = '';
+
     gameState = 'results';
     guess = userGuess;
     answer = getRandomItem(pearlLocation);
     totalPlays++;
     displayText1.classList.remove('hidden');
+    displayText2.classList.remove('hidden');
+    displayText3.classList.remove('hidden');
 
     if (guess === 'guess-1' && answer === 'guess-1') {
         shell1.classList.add('reveal');
@@ -143,9 +149,10 @@ function playGame(userGuess) {
     console.log(guess);
     console.log(answer);
     console.log(totalPlays);
+    console.log(result);
 
     // displayResults();
-    displayScoreboard();
+    // displayScoreboard();
 }
 
 /* Scoreboard */
@@ -153,7 +160,7 @@ const winsDisplay = document.getElementById('wins-display');
 const lossesDisplay = document.getElementById('losses-display');
 const totalDisplay = document.getElementById('total-display');
 
-function displayScoreboard() {
+/* function displayScoreboard() {
     if (result === 'win') {
         totalWins++;
     }
@@ -163,7 +170,8 @@ function displayScoreboard() {
     winsDisplay.textContent = totalWins;
     lossesDisplay.textContent = totalLosses;
     totalDisplay.textContent = totalPlays;
-}
+} */
+
 // event listeners
 guess1Button.addEventListener('click', () => {
     playGame('guess-1');
