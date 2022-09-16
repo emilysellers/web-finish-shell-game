@@ -192,6 +192,9 @@ guess3Button.addEventListener('click', () => {
 
 function playAgain() {
     gameState = 'guess';
+    guess1Button.classList.remove('hidden');
+    guess2Button.classList.remove('hidden');
+    guess3Button.classList.remove('hidden');
     loadPage();
 }
 
