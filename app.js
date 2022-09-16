@@ -2,12 +2,13 @@
 import { getRandomItem } from './utils.js';
 
 /* State */
-let gameState = 'guess'; // 'guess' or 'results'
-let guess = ''; // 'guess-1' 'guess-2' 'guess-3'
-let answer = ''; // 'guess-1' 'guess-2' 'guess-3'
+let gameState = 'results'; // 'guess' or 'results'
+let guess = 'guess-1'; // 'guess-1' 'guess-2' 'guess-3'
+let answer = 'quess-1'; // 'guess-1' 'guess-2' 'guess-3'
 let result = 'win'; // 'win' or 'lose'
 
 let totalWins = 0;
+let totalLosses = 0;
 let totalPlays = 0;
 
 // probability array
@@ -21,24 +22,23 @@ const shell1 = document.getElementById('shell-1');
 const shell2 = document.getElementById('shell-2');
 const shell3 = document.getElementById('shell-3');
 
-const guess1 = document.getElementById('guess-1');
-const guess2 = document.getElementById('guess-2');
-const guess3 = document.getElementById('guess-3');
+const guess1Button = document.getElementById('guess-1-button');
+const guess2Button = document.getElementById('guess-2-button');
+const guess3Button = document.getElementById('guess-3-button');
 
-const display1 = document.getElementById('display-1');
-const display2 = document.getElementById('display-2');
-const display3 = document.getElementById('display-3');
+const displayText1 = document.getElementById('display-text-1');
+const displayText2 = document.getElementById('display-text-2');
+const displayText3 = document.getElementById('display-text-3');
 
 const playAgainButton = document.getElementById('play-again-button');
 
 /* Actions */
 function loadPage() {
     displayShells();
-    displayResults();
-    displayScoreboard();
 }
 
 function displayShells() {
+    gameState = 'guess';
     if (gameState === 'guess') {
         pearl1.classList.add('hidden');
         pearl2.classList.add('hidden');
@@ -46,76 +46,81 @@ function displayShells() {
         shell1.classList.remove('reveal');
         shell2.classList.remove('reveal');
         shell3.classList.remove('reveal');
-        display1.classList.add('hidden');
-        display2.classList.add('hidden');
-        display3.classList.add('hidden');
+        displayText1.classList.add('hidden');
+        displayText2.classList.add('hidden');
+        displayText3.classList.add('hidden');
         playAgainButton.classList.add('hidden');
     }
 }
 
 // display
 
-function displayResults() {
+/* function displayResults() {
     if (gameState === 'results') {
-        guess1.classList.add('hidden');
-        guess2.classList.add('hidden');
-        guess3.classList.add('hidden');
+        guess1Button.classList.add('hidden');
+        guess2Button.classList.add('hidden');
+        guess3Button.classList.add('hidden');
         playAgainButton.classList.remove('hidden');
     }
+} */
 
+function playGame(userGuess) {
+    gameState = 'results';
     guess = userGuess;
     answer = getRandomItem(pearlLocation);
     totalPlays++;
+    displayText1.classList.remove('hidden');
 
-    if (guess === 'guess-1') {
+    if (guess === 'guess-1' && answer === 'guess-1') {
         shell1.classList.add('reveal');
-    }
-
-    if (guess === 'guess-2') {
-        shell2.classList.add('reveal');
-    }
-
-    if (guess === 'guess-3') {
-        shell3.classList.add('reveal');
-    }
-
-    if (guess === answer) {
-        result = 'win';
+        pearl1.classList.remove('hidden');
+        displayText1.textContent = 'Found it!';
         totalWins++;
-    } else {
-        result = 'lose';
     }
 
-    loadPage();
+    if (guess === 'guess-1' && answer === 'guess-2') {
+        shell1.classList.add('reveal');
+        shell2.classList.add('reveal');
+        pearl2.classList.remove('hidden');
+        displayText1.textContent = 'Not here!';
+        totalLosses++;
+    }
+
+    console.log(guess);
+    console.log(answer);
+    console.log(totalWins);
+
+    // displayResults();
+    displayScoreboard();
 }
 
-function playAgain() {
-    gameState = 'guess';
-    loadPage();
-}
 /* Scoreboard */
-
 const winsDisplay = document.getElementById('wins-display');
 const lossesDisplay = document.getElementById('losses-display');
 const totalDisplay = document.getElementById('total-display');
 
 function displayScoreboard() {
-    totalDisplay.textContent = totalPlays;
     winsDisplay.textContent = totalWins;
-    lossesDisplay.textContent = totalPlays - totalWins;
+    lossesDisplay.textContent = totalLosses;
+    totalDisplay.textContent = totalPlays;
 }
 // event listeners
-guess1.addEventListener('click', () => {
-    displayResults('guess-1');
+guess1Button.addEventListener('click', () => {
+    playGame('guess-1');
 });
 
-guess2.addEventListener('click', () => {
-    displayResults('guess-2');
+guess2Button.addEventListener('click', () => {
+    playGame('guess-2');
 });
 
-guess3.addEventListener('click', () => {
-    displayResults('guess-3');
+guess3Button.addEventListener('click', () => {
+    playGame('guess-3');
 });
+
+function playAgain() {
+    gameState = 'guess';
+    loadPage();
+}
 
 playAgainButton.addEventListener('click', () => {
     playAgain();
