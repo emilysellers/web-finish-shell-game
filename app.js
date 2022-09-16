@@ -76,6 +76,7 @@ function playGame(userGuess) {
     displayText1.classList.remove('hidden');
     displayText2.classList.remove('hidden');
     displayText3.classList.remove('hidden');
+    playAgainButton.classList.remove('hidden');
 
     if (guess === 'guess-1' && answer === 'guess-1') {
         shell1.classList.add('reveal');
