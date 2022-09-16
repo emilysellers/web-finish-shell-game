@@ -75,7 +75,7 @@ function playGame(userGuess) {
         shell1.classList.add('reveal');
         pearl1.classList.remove('hidden');
         displayText1.textContent = 'Found it!';
-        totalWins++;
+        result = 'win';
     }
 
     if (guess === 'guess-1' && answer === 'guess-2') {
@@ -83,12 +83,66 @@ function playGame(userGuess) {
         shell2.classList.add('reveal');
         pearl2.classList.remove('hidden');
         displayText1.textContent = 'Not here!';
-        totalLosses++;
+        result = 'lose';
+    }
+
+    if (guess === 'guess-1' && answer === 'guess-3') {
+        shell1.classList.add('reveal');
+        shell3.classList.add('reveal');
+        pearl3.classList.remove('hidden');
+        displayText1.textContent = 'Not here!';
+        result = 'lose';
+    }
+
+    if (guess === 'guess-2' && answer === 'guess-1') {
+        shell2.classList.add('reveal');
+        shell1.classList.add('reveal');
+        pearl1.classList.remove('hidden');
+        displayText2.textContent = 'Not here!';
+        result = 'lose';
+    }
+
+    if (guess === 'guess-2' && answer === 'guess-2') {
+        shell2.classList.add('reveal');
+        pearl2.classList.remove('hidden');
+        displayText2.textContent = 'Found it!';
+        result = 'win';
+    }
+
+    if (guess === 'guess-2' && answer === 'guess-3') {
+        shell2.classList.add('reveal');
+        shell3.classList.add('reveal');
+        pearl3.classList.remove('hidden');
+        displayText2.textContent = 'Not here!';
+        result = 'lose';
+    }
+
+    if (guess === 'guess-3' && answer === 'guess-1') {
+        shell3.classList.add('reveal');
+        shell1.classList.add('reveal');
+        pearl1.classList.remove('hidden');
+        displayText3.textContent = 'Not here!';
+        result = 'lose';
+    }
+
+    if (guess === 'guess-3' && answer === 'guess-2') {
+        shell3.classList.add('reveal');
+        shell2.classList.add('reveal');
+        pearl2.classList.remove('hidden');
+        displayText3.textContent = 'Not here!';
+        result = 'lose';
+    }
+
+    if (guess === 'guess-3' && answer === 'guess-3') {
+        shell3.classList.add('reveal');
+        pearl3.classList.remove('hidden');
+        displayText3.textContent = 'Found it!';
+        result = 'win';
     }
 
     console.log(guess);
     console.log(answer);
-    console.log(totalWins);
+    console.log(totalPlays);
 
     // displayResults();
     displayScoreboard();
@@ -100,6 +154,12 @@ const lossesDisplay = document.getElementById('losses-display');
 const totalDisplay = document.getElementById('total-display');
 
 function displayScoreboard() {
+    if (result === 'win') {
+        totalWins++;
+    }
+    if (result === 'lose') {
+        totalLosses++;
+    }
     winsDisplay.textContent = totalWins;
     lossesDisplay.textContent = totalLosses;
     totalDisplay.textContent = totalPlays;
