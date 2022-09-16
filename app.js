@@ -153,7 +153,7 @@ function playGame(userGuess) {
     console.log(result);
 
     // displayResults();
-    // displayScoreboard();
+    displayScoreboard();
 }
 
 /* Scoreboard */
@@ -161,7 +161,11 @@ const winsDisplay = document.getElementById('wins-display');
 const lossesDisplay = document.getElementById('losses-display');
 const totalDisplay = document.getElementById('total-display');
 
-/* function displayScoreboard() {
+function displayScoreboard() {
+    guess1Button.classList.add('hidden');
+    guess2Button.classList.add('hidden');
+    guess3Button.classList.add('hidden');
+
     if (result === 'win') {
         totalWins++;
     }
@@ -171,7 +175,7 @@ const totalDisplay = document.getElementById('total-display');
     winsDisplay.textContent = totalWins;
     lossesDisplay.textContent = totalLosses;
     totalDisplay.textContent = totalPlays;
-} */
+}
 
 // event listeners
 guess1Button.addEventListener('click', () => {
